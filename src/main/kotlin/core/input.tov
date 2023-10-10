@@ -1,0 +1,29 @@
+MODEL NAME  -> "Fermi-Gas Simulations
+AUTHOR      -> "Amir H. Harebrained"
+VER         -> "0.1"
+DESCRIPTION -> "Testing the Equation of State of a Fermi Gas"
+
+# --------- Model Init ---------
+EOS TYPE         -> Pressure : Density
+INITIAL PRESSURE ->
+INITIAL RADIUS   ->
+LIMITED TO       -> Pressure : 1e-5
+STEP SIZE        -> 0.01
+METHOD           -> RK4
+
+# --------- Equations Init ---------
+EOS           -> Default
+PRESSURE EQ   -> Default
+MASS INTEGRAL -> Default
+
+# --------- Data Recording ---------
+TYPE -> csv
+DIR  -> './'
+
+# --------- Plot ---------
+USE         -> Plotly
+GRAPHS      -> [Radius : Pressure ,Radius : Density][Radius : Mass][MaxRadius : MaxMass]
+GRAPH TITLE -> [Pressure/Density, Mass, Maximum Radius and Mass]
+// TODO
+
+
