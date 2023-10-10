@@ -1,0 +1,3 @@
+
+rootProject.name = "NeutronStar-Platform"
+
