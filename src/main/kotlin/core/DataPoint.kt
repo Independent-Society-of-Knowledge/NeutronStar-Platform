@@ -8,8 +8,13 @@ data class Point(
 )
 
 data class InitialValues(
-    val density: Double,
+    val primaryValue: Double,
     val radius: Double,
+    val inversed: Boolean
+)
+
+data class ComputationalRestrictions(
     val limit: Double,
-    val stepSize: Double
+    val stepSize: Double,
+    val inversed: Boolean
 )

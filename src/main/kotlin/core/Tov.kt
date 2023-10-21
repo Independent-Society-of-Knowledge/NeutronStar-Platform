@@ -1,7 +1,11 @@
 package core
 
 interface Tov {
-    fun Double.equationOfState(): Double
-    fun Point.pressureEq(): Double
-    fun Point.massEq(): Double
+    fun equationOfState(primaryValue: Double): Double
+    fun pressureEq(point: Point): Double
+    fun massEq(point: Point): Double
+}
+
+fun Sequence<Pair<Double, Double>>.cross(){
+
 }
