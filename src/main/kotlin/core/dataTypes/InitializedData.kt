@@ -5,6 +5,9 @@
  */
 package core.dataTypes
 
+/**
+ * Initialized data before starting the computation.
+ */
 data class InitializedData(
     val primaryValue: Double,
     val stepSize: Double,

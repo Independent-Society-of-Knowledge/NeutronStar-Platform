@@ -9,5 +9,10 @@ import core.dataTypes.InitializedData
 import core.dataTypes.Point
 
 interface Initializer {
+
+    /**
+     * From the initializedData, makes a point ready for method interface:
+     * @return Point
+     */
     fun InitializedData.init(): Point
 }

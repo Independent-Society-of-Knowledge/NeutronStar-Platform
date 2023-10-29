@@ -1,3 +1,6 @@
-package core.dataTypes
+package core.functionTypes
 
+/**
+ * A 
+ */
 typealias Integrand = (Double) -> Double

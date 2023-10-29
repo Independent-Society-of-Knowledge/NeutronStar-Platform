@@ -2,7 +2,6 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "1.9.10"
-
 }
 
 group = "org.example"
@@ -13,7 +12,6 @@ repositories {
 }
 
 dependencies {
-    implementation("org.nield:kotlin-mathplotlib:0.5.2")
     testImplementation(kotlin("test"))
 }
 

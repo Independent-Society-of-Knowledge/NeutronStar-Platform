@@ -1,6 +1,6 @@
 package core.utils.math
 
-import core.dataTypes.Integrand
+import core.functionTypes.Integrand
 import kotlin.math.pow
 
 inline fun definiteIntegrate(

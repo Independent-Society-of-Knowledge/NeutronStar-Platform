@@ -1,7 +1,7 @@
 package core.utils.math
 
-import core.dataTypes.IndefiniteIntegral
-import core.dataTypes.Integrand
+import core.functionTypes.IndefiniteIntegral
+import core.functionTypes.Integrand
 
 inline fun indefiniteIntegrate(
     precision: Double = 10e-8,

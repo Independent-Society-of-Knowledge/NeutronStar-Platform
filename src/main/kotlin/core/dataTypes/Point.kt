@@ -5,6 +5,9 @@
  */
 package core.dataTypes
 
+/**
+ * A Point of calculated Data
+ */
 data class Point(
     val pressure: Double,
     val density: Double,

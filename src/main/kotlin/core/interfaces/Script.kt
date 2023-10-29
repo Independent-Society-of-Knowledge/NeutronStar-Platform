@@ -5,7 +5,7 @@
  */
 package core.interfaces
 
-import core.dataTypes.EquationOfState
+import core.functionTypes.EquationOfState
 import core.dataTypes.InitializedData
 
 interface Script {
