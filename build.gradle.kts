@@ -13,8 +13,8 @@ repositories {
 }
 
 dependencies {
+    implementation("org.nield:kotlin-mathplotlib:0.5.2")
     testImplementation(kotlin("test"))
-    implementation(kotlin("math"))
 }
 
 tasks.test {
