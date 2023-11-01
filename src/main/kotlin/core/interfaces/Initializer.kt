@@ -5,10 +5,9 @@
  */
 package core.interfaces
 
-import core.dataTypes.InitializedData
 import core.dataTypes.Point
 import core.dataTypes.Script
-import core.functionTypes.EquationOfState
+import core.functionTypes.OneToOneFunction
 
 interface Initializer {
 
@@ -16,5 +15,5 @@ interface Initializer {
      * From the initializedData, makes a point ready for method interface:
      * @return Point
      */
-    fun initialize(script: Script): Pair<Point, EquationOfState>
+    fun initialize(script: Script): Pair<Point, OneToOneFunction>
 }

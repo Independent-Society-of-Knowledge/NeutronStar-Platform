@@ -5,9 +5,6 @@
  */
 package core.dataTypes
 
-import core.functionTypes.EquationOfState
-import core.dataTypes.InitializedData
-
 data class Script(
     val path: String
 )

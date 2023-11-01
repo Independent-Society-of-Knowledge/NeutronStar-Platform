@@ -1,13 +1,13 @@
 package core.utils.math
 
-import core.functionTypes.Integrand
+import core.functionTypes.OneToOneFunction
 import kotlin.math.pow
 
 inline fun definiteIntegrate(
     bound: Pair<Double, Double>,
     precision: Double = 10e-8,
     maxSecondDerivativeValue: Double = 1.0,
-    integrand: Integrand,
+    integrand: OneToOneFunction,
 ): Double {
 
     if (bound.second == bound.first) return 0.0

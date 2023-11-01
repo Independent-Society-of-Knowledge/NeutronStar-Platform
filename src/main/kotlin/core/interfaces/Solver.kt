@@ -2,7 +2,7 @@ package core.interfaces
 
 import core.dataTypes.Point
 import core.dataTypes.Script
-import core.functionTypes.EquationOfState
+import core.functionTypes.OneToOneFunction
 
 interface Solver {
     val script: Script
@@ -10,7 +10,7 @@ interface Solver {
     val method: Method
 
     // A point and the Equation of State
-    val startingValues: Pair<Point, (Double) -> Double>
+    val startingValues: Pair<Point, OneToOneFunction>
         get() = initializer.initialize(script)
 
 
