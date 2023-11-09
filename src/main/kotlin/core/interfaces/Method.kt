@@ -5,14 +5,19 @@
  */
 package core.interfaces
 
+import core.dataTypes.ComputationalVariable
+import core.functionTypes.Limit
+import java.awt.Point
 
-interface Method {
 
+interface Method<T>: Iterator<T> {
+    val firstPoint: T
+    val computationalVariable: ComputationalVariable<T>
     /**
      * The function returns the last computed point.
      * @return Point
      */
-    fun last(): Any
+    fun last(): T
 
     /**
      *  The function transforms corrections into a point type to
@@ -20,18 +25,18 @@ interface Method {
      *
      *  @return Point
      */
-    fun correctionsToPoint(corrections: Array<Double>): Any
+    fun correctionsToPoint(corrections: Array<Double>): T
 
     /**
      * This function checks the default and user defined limitations for the algorithm to run
      * such as time, pressure limit etc
      * @return Boolean
      */
-    fun hasNext(): Boolean
+    override fun hasNext(): Boolean
 
     /**
      * The function is the main method algorithm running each time that is being called.
      * @return Point
      */
-    fun next(): Any
+    override fun next(): T
 }

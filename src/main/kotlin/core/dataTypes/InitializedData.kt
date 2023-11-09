@@ -7,13 +7,15 @@ package core.dataTypes
 
 import core.functionTypes.Limit
 
+
 /**
  * Initialized data before starting the computation.
  */
-data class InitializedData(
+data class InitializedData<A>(
     val primaryValue: Double,
+    val initialVariable: Double,
     val stepSize: Double,
-    val limit: Limit,
-    val initialRadius: Double,
-    val isInverse: Boolean
+    val isInverse: Boolean,
+    val equationOfState: (A)-> Double
 )
+

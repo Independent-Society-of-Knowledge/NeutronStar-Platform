@@ -5,7 +5,6 @@
  */
 package core.utils.computational
 
-import core.dataTypes.ComputationalVariable
-import core.dataTypes.Point
-
-typealias Logger<T> = T.() -> Unit
+inline fun <reified T> checkType(variable: Any): Boolean {
+    return variable is T
+}

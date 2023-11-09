@@ -5,14 +5,19 @@
  */
 package core.dataTypes
 
+import core.functionTypes.Limit
 import java.time.Instant
 
 
 /**
  * Logs and computation reports needed to be saved.
  */
-data class ComputationalReport(
-    val log: String,
+data class ComputationalVariable<T>(
+    var log: String,
     val time: Instant,
-    val error: Boolean
+    var error: Boolean,
+    val stepSize: Double,
+    val stepNumber: Int,
+    val limit: Limit<T>
+
 )

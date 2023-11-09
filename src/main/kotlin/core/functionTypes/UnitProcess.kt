@@ -5,4 +5,4 @@
  */
 package core.functionTypes
 
-typealias FirstOrderODE = (Pair<Double, Double>) -> Double
+typealias UnitProcess<T> = T.() -> Unit

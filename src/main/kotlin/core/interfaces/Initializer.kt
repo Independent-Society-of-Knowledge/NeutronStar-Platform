@@ -5,15 +5,16 @@
  */
 package core.interfaces
 
+import core.dataTypes.ComputationalVariable
+import core.dataTypes.InitializedData
 import core.dataTypes.Point
-import core.dataTypes.Script
-import core.functionTypes.OneToOneFunction
+import core.functionTypes.Limit
 
-interface Initializer {
+interface Initializer<T, U> {
+    val initializedData: InitializedData<T>
+    val computationalVariable: ComputationalVariable<U>
+    fun initialPoint(): Point
 
-    /**
-     * From the initializedData, makes a point ready for method interface:
-     * @return Point
-     */
-    fun initialize(script: Script): Pair<Point, OneToOneFunction>
+
+    fun computationalVariables(): ComputationalVariable<U>
 }

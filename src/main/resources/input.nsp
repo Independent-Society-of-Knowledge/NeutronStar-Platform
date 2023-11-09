@@ -1,0 +1,26 @@
+MODEL NAME  -> "Harmonic Oscillation"
+AUTHOR      -> "Amir H. Harebrained"
+VER         -> "0.1"
+DESCRIPTION -> "Testing the program with a harmonic oscillator equation"
+
+# --------- Model Init ---------
+INITIAL PRIMARY  -> 1.0
+INITIAL VARIABLE -> 0.0
+TYPE             -> H.OSC
+
+# --------- Equations Init ---------
+EOS           -> Default
+PRESSURE EQ   -> Default
+MASS INTEGRAL -> Default
+
+# --------- Data Recording ---------
+TYPE -> csv
+DIR  -> './'
+
+# --------- Plot ---------
+USE         -> Plotly
+GRAPHS      -> [Radius : Pressure ,Radius : Density][Radius : Mass][MaxRadius : MaxMass]
+GRAPH TITLE -> [Pressure/Density, Mass, Maximum Radius and Mass]
+// TODO
+
+
