@@ -6,7 +6,8 @@
 package core.utils.math
 
 
-import kotlin.math.pow
+import kotlin.math.*
+import kotlin.time.measureTime
 
 inline fun definiteIntegrate(
     bound: Pair<Double, Double>,
@@ -29,4 +30,15 @@ inline fun definiteIntegrate(
             val previous: Double = next - delta
             integrand(previous) + integrand(next)
         } * (delta / 2.0) // TODO(WTF??)
+}
+
+fun main() {
+    val integralSinus: Double
+    println(measureTime {
+        integralSinus = definiteIntegrate(0.0 to 2 * PI) {
+            sin(it)
+        }
+    })
+
+    println(integralSinus)
 }
