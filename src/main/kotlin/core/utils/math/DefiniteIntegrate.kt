@@ -32,13 +32,13 @@ inline fun definiteIntegrate(
         } * (delta / 2.0) // TODO(WTF??)
 }
 
-fun main() {
-    val integralSinus: Double
-    println(measureTime {
-        integralSinus = definiteIntegrate(0.0 to 2 * PI) {
-            sin(it)
-        }
-    })
-
-    println(integralSinus)
-}
+//fun main() {
+//    val integralSinus: Double
+//    println(measureTime {
+//        integralSinus = definiteIntegrate(0.0 to 2 * PI) {
+//            sin(it)
+//        }
+//    })
+//
+//    println(integralSinus)
+//}

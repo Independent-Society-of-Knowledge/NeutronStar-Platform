@@ -12,8 +12,8 @@ fun Sequence<Double>.numericIntegrate(stepSize: Double): Double{
     }.sum()
 }
 
-fun main() {
-    println(functionSample(0.0, 2 * PI, 0.000001) {
-        cos(this).pow(2.0)
-    }.asSequence().asSequence().numericIntegrate(0.000001))
-}
+//fun main() {
+//    println(functionSample(0.0, 2 * PI, 0.000001) {
+//        cos(this).pow(2.0)
+//    }.asSequence().asSequence().numericIntegrate(0.000001))
+//}

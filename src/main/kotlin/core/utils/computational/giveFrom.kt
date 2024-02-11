@@ -7,6 +7,6 @@ fun giveFrom(
         .takeWhile { it <= end }
 }
 
-fun main() {
-    giveFrom(100.00).forEach { println(it) }
-}
+//fun main() {
+//    giveFrom(100.00).forEach { println(it) }
+//}
