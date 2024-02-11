@@ -4,7 +4,7 @@
  * All rights of the code is reserved.
  */
 package core.utils.math
-
+//
 //import core.base.functionTypes.IndefiniteIntegral
 //
 //inline fun indefiniteIntegrate(

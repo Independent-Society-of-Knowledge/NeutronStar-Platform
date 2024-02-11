@@ -10,12 +10,14 @@ import core.utils.computational.saveToCsv
 import core.utils.math.definiteIntegrate
 import java.io.File
 import kotlin.math.pow
+import core.utils.math.numericIntegrate
+import kotlin.math.PI
 
 class TovSolver(
     private val savingPath: String,
     private val plottingPath: String,
     private val limit: Limit<Point>,
-    val isGood: Int,
+    private val isGood: Int,
     private val solverID: Long,
     private val stepSize: Double = 0.01,
     private val maximumSave: Boolean = true,
@@ -27,18 +29,14 @@ class TovSolver(
     private var initialRadius = 0.0
     private var initialMass = 0.0
     private var initialPressure = 0.0
-    private var initialDensity = 0.0
     private var maximums = Triple(0.0,0.0,0.0)
     init {
         assert(initialValues.dimension == 2) {
             throw ExceptionInInitializerError()
         }
          initialRadius = initialValues[0]
-         initialDensity = initialValues[1]
-         initialMass = definiteIntegrate(0.0 to initialRadius) {
-            it.pow(2.0) * initialDensity
-        }
-         initialPressure = equationOfState.first(initialDensity)
+         initialPressure = equationOfState.first(initialValues[1])
+         initialMass =  1e-10
     }
     // Differential Equations
     val pressureDiff: Equation<Point> = {
@@ -50,41 +48,42 @@ class TovSolver(
     val massDiff: Equation<Point> = {
         val radius = this[0]
         val pressure = this[1]
-        radius.pow(2.0) * equationOfState.second(pressure)
+        4 * PI * radius.pow(2.0) * equationOfState.second(pressure)
     }
 
     // Generator
-    private fun solve(initialPressure: Double, initialMass: Double, initialRadius: Double) {
+    private fun solve(initialPressure: Double, initialMass: Double, initialRadius: Double){
         data = rungeKutta(stepSize, pointOf(initialRadius, initialPressure, initialMass)) {
             pointOf(0.0, pressureDiff(it), massDiff(it))
-        }.takeWhile(limit).take(isGood)
+        }.takeWhile(limit)
     }
 
     private fun postSolve() {
-        if (data.take(isGood).count() == isGood) {
+        if (true) {
             data.saveToCsv("$savingPath/$solverID")
-            data.savePicture(solverID.toString(), "$plottingPath/", 10_000)
+            data.savePicture(solverID.toString(), "$plottingPath/", 5000)
             if (maximumSave) {
                 maximums =  Triple(
                     data.map { it[0] }.max(),
                     data.map { it[1] }.max(),
-                    data.map { it[2] }.max()
+                    data.map { it[2] }.numericIntegrate(stepSize)
                 )
             }
         }
 
     }
 
-    fun eval(){
+    fun eval(): Sequence<Point> {
         solve(initialPressure, initialMass, initialRadius)
         postSolve()
+        return data
     }
 
     fun getMax(): Pair<Triple<Double, Double,Double>, Boolean> {
-        if (data.take(isGood).count() == isGood)
-            return Pair(maximums, true)
+        return if (data.take(isGood).count() == isGood)
+            Pair(maximums, true)
         else{
-            return Pair(maximums, false)
+            Pair(maximums, false)
         }
     }
 }

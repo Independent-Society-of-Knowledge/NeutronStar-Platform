@@ -17,7 +17,6 @@ fun rungeKutta(stepSize: Double, initialValues: Point, equationOfMotion: (Point)
             val k2 = equationOfMotion(point + k1 * stepSize2)
             val k3 = equationOfMotion(point + k2 * stepSize2)
             val k4 = equationOfMotion(point + k3 * stepSize)
-
             point += (k1 + 2.0 * k2 + 2.0 * k3 + k4) * (stepSize / 6.0)
             point[0] += stepSize
 
