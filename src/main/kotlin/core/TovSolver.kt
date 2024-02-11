@@ -5,7 +5,7 @@ import core.base.dataTypes.pointOf
 import core.base.functionTypes.Equation
 import core.base.functionTypes.Limit
 import core.base.methods.rungeKutta
-import core.utils.computational.savePicture
+//import core.utils.computational.savePicture
 import core.utils.computational.saveToCsv
 import core.utils.math.definiteIntegrate
 import java.io.File
