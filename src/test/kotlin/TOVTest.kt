@@ -57,63 +57,60 @@ fun main() {
     File("fermi").mkdirs()
     val idGen = AtomicLong()
     val result = mutableListOf<Triple<Double, Double, Double>>(Triple(0.0, 0.0, 0.0))
+    val listOfGammas = listOf<Double>(2.0, 4.0 / 3.0, 5.0 / 3.0, 5.0 / 4.0, 1.0, 11.0 / 6.0, 3.0 / 2.0)
+    listOfGammas.forEach { gamma ->
+        giveFrom(10.0, 0.0001, step = 0.0001)
+            .asStream()
+            .parallel()
+            .forEach { initialDensity ->
+                val neutronTest = TovSolver(
+                    "fermi", // Saving Path
+                    "fermi", // Plotting Path
+                    { this[1] > 1e-10 && !this[1].isNaN() && !this[1].isInfinite() }, // Limits
+                    100, // How much data is good enough
+                    idGen.incrementAndGet(), // Solver ID for Savings
+                    initialValues = pointOf(0.001, initialDensity), // Initial Values
+                    equationOfState = Pair(
+                        first = {
+                            val kappa = 0.05
+                            kappa * it.pow(gamma)       // Density -> Pressure
+                        },
+                        second = {
+                            val kappa = 0.05
+                            (it / kappa).pow(1 / gamma)// Pressure -> Density
+                        })
+                )
+                neutronTest.eval()}}}
+//                if (neutronTest.getMax().second) {
+//                    result.add(neutronTest.getMax().first)
+//                }
+//        if (result.size > 20) {
+//            println(result)
+//            result.asSequence()
+//                .saveToCsv(
+//                    "./max/result/fermi",
+//                    Triple("maxRadius", "maxPressure", "maxMass")
+//                )
+//
+//            val plt = letsPlot(
+//                mapOf(
+//                    "maxRadius" to result.map { it.first }.drop(1),
+//                    "maxPressure" to result.map { it.second }.drop(1),
+//                    "maxMass" to result.map { it.third }.drop(1)
+//                )
+//            ) + ggsize(1028, 720) + themeMinimal()
+//            val pltPressure = plt + ggtitle("maxRadius vs maxPressure") + geomPoint() {
+//                x = "maxRadius"
+//                y = "maxPressure"
+//            }
+//            val pltMass = plt + ggtitle("maxMass vs maxPressure") + geomPoint() {
+//                x = "maxPressure"
+//                y = "maxMass"
+//            }
+//            ggsave(pltPressure, filename = "maxPre.png")
+//            ggsave(pltMass, filename = "maxMas.png")
+//        }
 
 
-
-
-    giveFrom(10.0,0.001, step = 0.001)
-        .asStream()
-        .parallel()
-        .forEach { initialDensity ->
-            val neutronTest = TovSolver(
-                "fermi", // Saving Path
-                "fermi", // Plotting Path
-                { this[1] > 1e-10 && !this[1].isNaN() && !this[1].isInfinite() }, // Limits
-                20_000, // How much data is good enough
-                idGen.incrementAndGet(), // Solver ID for Savings
-                initialValues = pointOf(0.001, initialDensity), // Initial Values
-                equationOfState = Pair(
-                    first = {
-                        val kappa = 0.05
-                        kappa * it.pow(4.0 / 3.0)       // Density -> Pressure
-                    },
-                    second = {
-                        val kappa = 0.05
-                        (it / kappa).pow(3.0/4.0)// Pressure -> Density
-                    })
-            )
-            neutronTest.eval()
-            if (neutronTest.getMax().second) {
-                result.add(neutronTest.getMax().first)
-            }
-
-        }
-    if (result.size > 20) {
-        println(result)
-        result.asSequence()
-            .saveToCsv(
-                "./max/result/fermi",
-                Triple("maxRadius", "maxPressure", "maxMass")
-            )
-
-        val plt = letsPlot(
-            mapOf(
-                "maxRadius" to result.map { it.first }.drop(1),
-                "maxPressure" to result.map { it.second }.drop(1),
-                "maxMass" to result.map { it.third }.drop(1)
-            )
-        ) + ggsize(1028, 720) + themeMinimal()
-        val pltPressure = plt + ggtitle("maxRadius vs maxPressure") + geomPoint() {
-            x = "maxRadius"
-            y = "maxPressure"
-        }
-        val pltMass = plt + ggtitle("maxMass vs maxPressure") + geomPoint() {
-            x = "maxPressure"
-            y = "maxMass"
-        }
-        ggsave(pltPressure, filename = "maxPre.png")
-        ggsave(pltMass, filename = "maxMas.png")
-    }
-}
 
 

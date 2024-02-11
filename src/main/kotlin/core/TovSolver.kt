@@ -20,7 +20,7 @@ class TovSolver(
     private val isGood: Int,
     private val solverID: Long,
     private val stepSize: Double = 0.01,
-    private val maximumSave: Boolean = true,
+    private val maximumSave: Boolean = false,
     val initialValues: Point,
     val equationOfState: Pair<(Double) -> Double, (Double) -> Double> // First is the real and second one is the inverse.
 ) {
@@ -59,9 +59,9 @@ class TovSolver(
     }
 
     private fun postSolve() {
-        if (true) {
+        if (data.count() > isGood) {
             data.saveToCsv("$savingPath/$solverID")
-            data.savePicture(solverID.toString(), "$plottingPath/", 5000)
+//            data.savePicture(solverID.toString(), "$plottingPath/", 5000)
             if (maximumSave) {
                 maximums =  Triple(
                     data.map { it[0] }.max(),
