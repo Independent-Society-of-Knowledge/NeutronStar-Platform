@@ -5,6 +5,7 @@ fun main() {
         kappa = 1.0,
         gamma = 3.0
     )
-
-    val diffPressure
+    fun diffPressure(radius: Double, ): Double {
+        TODO()
+    }
 }

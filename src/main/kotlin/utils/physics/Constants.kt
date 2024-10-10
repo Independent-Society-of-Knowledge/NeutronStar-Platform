@@ -1,4 +1,4 @@
-package legacy.utils.physics
+package utils.physics
 
 import kotlin.math.pow
 

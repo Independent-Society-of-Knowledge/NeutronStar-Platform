@@ -12,6 +12,7 @@ fun lagrangeInterpolation(xList: List<Double>, yList: List<Double>): (Double) ->
                     term *= (xVal - xList[j]) / (xList[i] - xList[j])
                 }
             }
+            println(term)
             result += term
         }
 

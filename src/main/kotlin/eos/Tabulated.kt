@@ -1,18 +1,31 @@
 package eos
 
+import utils.computational.giveFrom
 import utils.interpolation.InterpolationMethod
 import utils.interpolation.lagrangeInterpolation
 import utils.interpolation.linearInterpolation
 import utils.interpolation.newtonInterpolation
 import utils.interpolation.splineInterpolation
 import utils.isInBetween
+import visual.plot
 import java.io.File
+import kotlin.streams.asSequence
+import kotlin.streams.asStream
 
 class Tabulated(csvFilePath: String, interpolationMethod: InterpolationMethod = InterpolationMethod.LINEAR) : EOSType {
-    private val xList: List<Double>
-    private val rhoList: List<Double>
-    private val nList: List<Double>?
-    private val muList: List<Double>?
+    val pressureList: List<Double>
+    val densityList: List<Double>
+    val numerDensityList: List<Double>?
+    val chemicalPotentialList: List<Double>?
+
+    val maxOfPressure: Double
+    val minOfPressure: Double
+    val maxOfDensity: Double
+    val minOfDensity: Double
+    val maxOfNumerDensity: Double?
+    val minOfNumerDensity: Double?
+    val maxOfChemicalPotential: Double?
+    val minOfChemicalPotential: Double?
 
     private val rhoInterpolation: (Double) -> Double?
     private val nInterpolation: ((Double) -> Double?)?
@@ -21,17 +34,28 @@ class Tabulated(csvFilePath: String, interpolationMethod: InterpolationMethod = 
     init {
         val tableData = readCsvFile(csvFilePath)
 
-        xList = tableData.first
-        rhoList = tableData.second["rho"] ?: throw IllegalArgumentException("Missing rho data")
-        nList = tableData.second["n"]
-        muList = tableData.second["mu"]
+        pressureList = tableData.first
+        densityList = tableData.second["rho"] ?: throw IllegalArgumentException("Missing rho data")
+        numerDensityList = tableData.second["n"]
+        chemicalPotentialList = tableData.second["mu"]
+
+        maxOfPressure = pressureList.max()
+        minOfPressure = pressureList.min()
+        maxOfDensity = densityList.max()
+        minOfDensity = densityList.min()
+
+        maxOfNumerDensity = numerDensityList?.max()
+        minOfNumerDensity = numerDensityList?.min()
+        maxOfChemicalPotential = chemicalPotentialList?.max()
+        minOfChemicalPotential = densityList?.min()
 
         // Initialize the interpolation method for rho
-        rhoInterpolation = selectInterpolationMethod(xList, rhoList, interpolationMethod)
+        rhoInterpolation = selectInterpolationMethod(pressureList, densityList, interpolationMethod)
 
         // Initialize the interpolation method for n and mu if present
-        nInterpolation = nList?.let { selectInterpolationMethod(xList, it, interpolationMethod) }
-        muInterpolation = muList?.let { selectInterpolationMethod(xList, it, interpolationMethod) }
+        nInterpolation = numerDensityList?.let { selectInterpolationMethod(pressureList, it, interpolationMethod) }
+        muInterpolation =
+            chemicalPotentialList?.let { selectInterpolationMethod(pressureList, it, interpolationMethod) }
     }
 
     private fun selectInterpolationMethod(
@@ -49,16 +73,15 @@ class Tabulated(csvFilePath: String, interpolationMethod: InterpolationMethod = 
 
     // Function to read the CSV file and parse it into lists of data
     private fun readCsvFile(filePath: String): Pair<List<Double>, Map<String, List<Double>>> {
-        val xList = mutableListOf<Double>()
+        val pressureList = mutableListOf<Double>()
         val rhoList = mutableListOf<Double>()
         val nList = mutableListOf<Double>()
         val muList = mutableListOf<Double>()
-
         val file = File(filePath)
         file.forEachLine { line ->
             val values = line.split(",").map { it.toDoubleOrNull() }
             if (values.size >= 2 && values[0] != null && values[1] != null) {
-                xList.add(values[0]!!)
+                pressureList.add(values[0]!!)
                 rhoList.add(values[1]!!)
                 if (values.size > 2) {
                     nList.add(values[2] ?: Double.NaN)
@@ -73,7 +96,7 @@ class Tabulated(csvFilePath: String, interpolationMethod: InterpolationMethod = 
         if (nList.isNotEmpty()) dataMap["n"] = nList
         if (muList.isNotEmpty()) dataMap["mu"] = muList
 
-        return Pair(xList, dataMap)
+        return Pair(pressureList, dataMap)
     }
 
     // Interpolation functions that return the interpolated values
@@ -82,7 +105,16 @@ class Tabulated(csvFilePath: String, interpolationMethod: InterpolationMethod = 
     fun interpolateMu(p: Double): Double? = muInterpolation?.invoke(p)
 
     fun checkInRangeOfPressures(parameter: Double): Boolean {
-        return parameter isInBetween xList
+        return parameter isInBetween pressureList
     }
 
 }
+
+//fun main() {
+//    val eos = Tabulated("./src/main/resources/eos.csv", interpolationMethod = InterpolationMethod.SPLINE)
+//    giveFrom(eos.maxOfPressure, eos.minOfPressure, step= 0.001)
+//        .asSequence()
+//        .plot {
+//        eos.interpolateRho(it)!!
+//    }
+//}

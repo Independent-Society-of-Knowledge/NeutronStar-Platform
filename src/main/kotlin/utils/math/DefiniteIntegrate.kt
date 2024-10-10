@@ -3,7 +3,7 @@
  * Contact: me@thisismeamir.com
  * All rights of the code is reserved.
  */
-package legacy.utils.math
+package utils.math
 
 
 import kotlin.math.*

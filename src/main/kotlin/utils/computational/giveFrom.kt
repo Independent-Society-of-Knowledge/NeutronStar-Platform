@@ -1,4 +1,4 @@
-package legacy.utils.computational
+package utils.computational
 
 fun giveFrom(
     end: Double, start: Double = 0.0, step: Double = 0.01

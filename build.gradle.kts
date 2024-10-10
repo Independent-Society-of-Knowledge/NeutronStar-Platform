@@ -21,6 +21,7 @@ dependencies {
 
 //     Lets-Plot Kotlin API
     implementation("org.jetbrains.lets-plot:lets-plot-kotlin-jvm:4.4.3")
+    implementation("org.slf4j:slf4j-simple:1.7.36")
     // Lets-Plot Multiplatform (Batik rendering)
     implementation("org.jetbrains.lets-plot:lets-plot-batik:4.0.1")
     implementation("org.jetbrains.lets-plot:lets-plot-image-export:4.0.1")

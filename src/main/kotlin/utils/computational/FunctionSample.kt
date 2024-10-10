@@ -1,4 +1,4 @@
-package legacy.utils.computational
+package utils.computational
 
 fun functionSample(
     start: Double,

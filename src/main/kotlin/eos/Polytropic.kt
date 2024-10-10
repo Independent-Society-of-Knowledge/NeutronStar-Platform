@@ -7,6 +7,8 @@ import convertfm3km3
 import e
 import electricCharge
 import speedOfLight
+import utils.computational.giveFrom
+import visual.plot
 import kotlin.math.log
 import kotlin.math.pow
 import kotlin.math.sqrt
@@ -52,3 +54,14 @@ data class Polytropic(
     }
 
 }
+
+//fun main (){
+//    val poly = Polytropic(
+//        kappa = 5.3882,
+//        gamma = 5.0
+//    )
+//
+//    giveFrom(0.2, 0.0, 0.001).asSequence().plot {
+//        poly.differentialDensityByPressure(it)
+//    }
+//}

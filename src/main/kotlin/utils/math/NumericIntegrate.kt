@@ -1,4 +1,4 @@
-package legacy.utils.math
+package utils.math
 
 fun Sequence<Double>.numericIntegrate(stepSize: Double): Double{
     return this.map {
