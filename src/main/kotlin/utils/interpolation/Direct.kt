@@ -3,10 +3,15 @@ package utils.interpolation
 // Linear interpolation
 fun linearInterpolation(xList: List<Double>, yList: List<Double>): (Double) -> Double? {
     return { xVal ->
-        if (xVal < xList.first() || xVal > xList.last()) null
+        if (xVal < xList.first() || xVal > xList.last()) {
+            if (xVal < xList.first()) yList.first()
+            else yList.last()
+        }
 
-        val index = xList.indexOfFirst { it > xVal } - 1
-        if (index < 0 || index >= xList.size - 1)  null
+        val index = xList.indexOfFirst { it > xVal }
+//        println(index)
+        if (index < 0 )  0.0
+        if (index >= xList.size - 1) yList.max()
 
         val x0 = xList[index]
         val x1 = xList[index + 1]

@@ -1,6 +1,6 @@
 package utils.computational
 
-//import legacy.base.dataTypes.Point
+//import legacy.base.dataTypes.core.Point
 //import java.io.File
 //
 //fun Collection<Pair<Number,Number>>.saveToCsv(fileName: String, cols: Pair<String, String>){
@@ -23,7 +23,7 @@ package utils.computational
 //
 //}
 //
-//fun Sequence<Point>.saveToCsv(fileName: String) {
+//fun Sequence<core.Point>.saveToCsv(fileName: String) {
 //    File("$fileName.csv").printWriter().use { out ->
 //        out.println("radius,pressure,mass")
 //        this.forEach {

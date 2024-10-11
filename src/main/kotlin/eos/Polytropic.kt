@@ -1,12 +1,12 @@
 package eos
 
-import convertMevKm
-import convertMevfm3gcm3
-import convertMevfm3km2
-import convertfm3km3
-import e
-import electricCharge
-import speedOfLight
+import core.convertMevKm
+import core.convertMevfm3gcm3
+import core.convertMevfm3km2
+import core.convertfm3km3
+import core.e
+import core.electricCharge
+import core.speedOfLight
 import utils.computational.giveFrom
 import visual.plot
 import kotlin.math.log

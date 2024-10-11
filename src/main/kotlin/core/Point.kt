@@ -1,3 +1,5 @@
+package core
+
 data class Point(
     var pressure: Double,
     var mass: Double,

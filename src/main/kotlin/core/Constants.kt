@@ -1,6 +1,6 @@
-import kotlin.math.pow
+package core
 
-const val speedOfLight = 299792458
+const val speedOfLight = 299792458.0
 const val gravitationalConstant = 6.67408e-11
 const val electricCharge = 1.6021766208e-19
 const val reducedPlankConstant = 1.054571817e-34

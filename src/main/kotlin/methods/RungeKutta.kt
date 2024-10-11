@@ -1,19 +1,12 @@
 package methods
 
-import Point
-import visual.plotPairSequence
-import kotlin.math.PI
-import kotlin.math.cos
-import kotlin.math.pow
-import kotlin.math.sin
+import core.Point
 
 fun rungeKutta(stepSize: Double, initialValues: Point, equationOfMotion: (Point) -> Point): Sequence<Point> =
     sequence<Point> {
 
         var point = initialValues.copy()
         val stepSize2 = stepSize / 2.0
-
-        yield(point.copy())
 
         while (true) {
             val radius = point.radius
@@ -30,14 +23,14 @@ fun rungeKutta(stepSize: Double, initialValues: Point, equationOfMotion: (Point)
     }
 
 //fun main() {
-//    rungeKutta(0.1, Point(
+//    rungeKutta(0.1, core.Point(
 //        pressure = 1.0,
 //        mass = 0.0,
 //        radius = 0.01,
 //        density = 0.0,
 //        baryonDensity = 0.0
 //    ), {
-//        Point(
+//        core.Point(
 //            pressure =  -sin(it.radius) ,
 //            mass = cos(it.radius),
 //            radius = 1.0 ,

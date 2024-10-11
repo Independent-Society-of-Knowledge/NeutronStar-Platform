@@ -16,7 +16,7 @@ class Tabulated(csvFilePath: String, interpolationMethod: InterpolationMethod = 
     val pressureList: List<Double>
     val densityList: List<Double>
     val numerDensityList: List<Double>?
-    val chemicalPotentialList: List<Double>?
+//    val chemicalPotentialList: List<Double>?
 
     val maxOfPressure: Double
     val minOfPressure: Double
@@ -24,12 +24,12 @@ class Tabulated(csvFilePath: String, interpolationMethod: InterpolationMethod = 
     val minOfDensity: Double
     val maxOfNumerDensity: Double?
     val minOfNumerDensity: Double?
-    val maxOfChemicalPotential: Double?
-    val minOfChemicalPotential: Double?
+//    val maxOfChemicalPotential: Double?
+//    val minOfChemicalPotential: Double?
 
     private val rhoInterpolation: (Double) -> Double?
     private val nInterpolation: ((Double) -> Double?)?
-    private val muInterpolation: ((Double) -> Double?)?
+//    private val muInterpolation: ((Double) -> Double?)?
 
     init {
         val tableData = readCsvFile(csvFilePath)
@@ -37,7 +37,7 @@ class Tabulated(csvFilePath: String, interpolationMethod: InterpolationMethod = 
         pressureList = tableData.first
         densityList = tableData.second["rho"] ?: throw IllegalArgumentException("Missing rho data")
         numerDensityList = tableData.second["n"]
-        chemicalPotentialList = tableData.second["mu"]
+//        chemicalPotentialList = tableData.second["mu"]
 
         maxOfPressure = pressureList.max()
         minOfPressure = pressureList.min()
@@ -46,16 +46,16 @@ class Tabulated(csvFilePath: String, interpolationMethod: InterpolationMethod = 
 
         maxOfNumerDensity = numerDensityList?.max()
         minOfNumerDensity = numerDensityList?.min()
-        maxOfChemicalPotential = chemicalPotentialList?.max()
-        minOfChemicalPotential = densityList?.min()
+//        maxOfChemicalPotential = chemicalPotentialList?.max()
+//        minOfChemicalPotential = densityList?.min()
 
         // Initialize the interpolation method for rho
         rhoInterpolation = selectInterpolationMethod(pressureList, densityList, interpolationMethod)
 
         // Initialize the interpolation method for n and mu if present
         nInterpolation = numerDensityList?.let { selectInterpolationMethod(pressureList, it, interpolationMethod) }
-        muInterpolation =
-            chemicalPotentialList?.let { selectInterpolationMethod(pressureList, it, interpolationMethod) }
+//        muInterpolation =
+//            chemicalPotentialList?.let { selectInterpolationMethod(pressureList, it, interpolationMethod) }
     }
 
     private fun selectInterpolationMethod(
@@ -76,7 +76,7 @@ class Tabulated(csvFilePath: String, interpolationMethod: InterpolationMethod = 
         val pressureList = mutableListOf<Double>()
         val rhoList = mutableListOf<Double>()
         val nList = mutableListOf<Double>()
-        val muList = mutableListOf<Double>()
+//        val muList = mutableListOf<Double>()
         val file = File(filePath)
         file.forEachLine { line ->
             val values = line.split(",").map { it.toDoubleOrNull() }
@@ -86,15 +86,15 @@ class Tabulated(csvFilePath: String, interpolationMethod: InterpolationMethod = 
                 if (values.size > 2) {
                     nList.add(values[2] ?: Double.NaN)
                 }
-                if (values.size > 3) {
-                    muList.add(values[3] ?: Double.NaN)
-                }
+//                if (values.size > 3) {
+//                    muList.add(values[3] ?: Double.NaN)
+//                }
             }
         }
 
         val dataMap = mutableMapOf("rho" to rhoList)
         if (nList.isNotEmpty()) dataMap["n"] = nList
-        if (muList.isNotEmpty()) dataMap["mu"] = muList
+//        if (muList.isNotEmpty()) dataMap["mu"] = muList
 
         return Pair(pressureList, dataMap)
     }
@@ -102,7 +102,7 @@ class Tabulated(csvFilePath: String, interpolationMethod: InterpolationMethod = 
     // Interpolation functions that return the interpolated values
     fun interpolateRho(p: Double): Double? = rhoInterpolation(p)
     fun interpolateN(p: Double): Double? = nInterpolation?.invoke(p)
-    fun interpolateMu(p: Double): Double? = muInterpolation?.invoke(p)
+//    fun interpolateMu(p: Double): Double? = muInterpolation?.invoke(p)
 
     fun checkInRangeOfPressures(parameter: Double): Boolean {
         return parameter isInBetween pressureList

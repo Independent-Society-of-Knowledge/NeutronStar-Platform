@@ -7,7 +7,7 @@ import org.jetbrains.letsPlot.label.ggtitle
 import org.jetbrains.letsPlot.letsPlot
 import org.jetbrains.letsPlot.themes.themeMinimal
 
-//fun Sequence<Point>.savePicture(name: String, path: String, takeNumber: Int) {
+//fun Sequence<core.Point>.savePicture(name: String, path: String, takeNumber: Int) {
 //    val points = this.take(takeNumber).toList()
 //    val plt = letsPlot(
 //        mapOf(

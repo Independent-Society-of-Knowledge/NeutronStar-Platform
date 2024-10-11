@@ -1,3 +1,5 @@
+package core
+
 import eos.EOSType
 
 data class Options(
@@ -7,11 +9,11 @@ data class Options(
     val initialDensity: Double?,
     val initialBaryonDensity: Double?,
 
-    // Other Options.
+    // Other core.Options.
     val defauldSurfacePrusser: Double,
     val maximumIntegrationRadius: Double,
 
-    // Numerical Evaluation Options.
+    // Numerical Evaluation core.Options.
     val stepSize: Double = 0.05,
     val maxSteps: Int = 1e6.toInt(),
     val eosModel: EOSType
